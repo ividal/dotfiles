@@ -14,6 +14,10 @@ sudo apt-get install -y \
         geany-plugins \
         vim \
         htop \
+        mlocate \
+        apt-transport-https \
+        ca-certificates \
+        build-essential\        
         git \
         git-cola \
         python3-dev \
@@ -24,7 +28,6 @@ sudo apt-get install -y \
         unzip\
         p7zip-full\
         imagemagick \
-        gnome-tweak-tool \
         vlc \
         build-essential \
         keepass2 \
@@ -33,41 +36,6 @@ sudo apt-get install -y \
         chromium-browser 
 
 curl https://bootstrap.pypa.io/get-pip.py | sudo -H python3
-
-echo "
-\n
-=================================\n
-Docker deps
-=================================\n
-\n"
-
-# Docker deps
-sudo apt-get install -y \
-    apt-transport-https \
-    ca-certificates \
-    software-properties-common \
-    exfat-fuse \
-    exfat-utils \
-    build-essential\
-    libreadline-dev \
-    libffi-dev \
-    pkg-config
-    
-sudo apt-get autoremove -y
-
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo add-apt-repository \
-   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-   $(lsb_release -cs) \
-   stable"
-sudo apt-get update
-sudo apt-get install -y docker-ce
-sudo groupadd docker
-sudo usermod -aG docker $USER
-#sudo pkill -SIGHUP dockerd
-#sudo echo 'DOCKER_OPTS="-dns 8.8.8.8 -dns 8.8.4.4 -g /mnt/cargo"'>> /etc/default/docker
-#sudo service docker restart
-docker run --rm ubuntu ls
 
 
 echo "
@@ -95,6 +63,7 @@ Snaps, Dropbox...
 sudo snap install spotify
 sudo snap install pycharm-community --classic
 sudo snap install slack --classic
+sudo snap install skype --classic
 
 cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
 ~/.dropbox-dist/dropboxd &
@@ -102,6 +71,37 @@ cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
 
 sudo apt-get install -y zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+
+echo "
+\n
+=================================\n
+Docker deps
+=================================\n
+\n"
+
+# Docker deps
+sudo apt-get install -y \
+    software-properties-common \
+    libreadline-dev \
+    libffi-dev \
+    pkg-config
+    
+sudo apt-get autoremove -y
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+sudo apt-get update
+sudo apt-get install -y docker-ce
+sudo groupadd docker
+sudo usermod -aG docker $USER
+#sudo pkill -SIGHUP dockerd
+#sudo echo 'DOCKER_OPTS="-dns 8.8.8.8 -dns 8.8.4.4 -g /mnt/cargo"'>> /etc/default/docker
+#sudo service docker restart
+docker run --rm ubuntu ls
 
 echo "
 \n
@@ -113,4 +113,9 @@ docker run --rm ubuntu ls
 \n"
 
 
+# If <20.04:
+# sudo apt install -y \
+#   gnome-tweak-tool \
+#   exfat-fuse \
+#   exfat-utils
 
