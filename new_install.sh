@@ -76,6 +76,39 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mas
 echo "
 \n
 =================================\n
+Team-Viewer deps
+=================================\n
+\n"
+
+sudo apt install teamviewer
+
+#sudo apt install qml-module-qtquick2 qml-module-qtquick-controls qml-module-qtquick-dialogs qml-module-qtquick-window2 qml-module-qtquick-layouts
+
+
+echo "
+\n
+=================================\n
+Versions older than 20.04
+=================================\n
+\n"
+
+version=$(cat /etc/os-release |grep VERSION_ID | sed 's#.*=\"\(.*\)\"#\1#')
+
+echo $version
+
+if [ $version < 20.04 ]
+then
+    echo "Installing more packages"
+    sudo apt install -y \
+        gnome-tweak-tool \
+        exfat-fuse \
+        exfat-utils
+fi
+
+
+echo "
+\n
+=================================\n
 Docker deps
 =================================\n
 \n"
@@ -111,11 +144,4 @@ Then:
 docker run --rm ubuntu ls
 =================================\n
 \n"
-
-
-# If <20.04:
-# sudo apt install -y \
-#   gnome-tweak-tool \
-#   exfat-fuse \
-#   exfat-utils
 
